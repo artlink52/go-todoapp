@@ -14,7 +14,7 @@ func (r *UsersRepository) CreateUser(ctx context.Context, user domain.User) (dom
 	query := `
 		INSERT INTO todoapp.users (full_name, phone_number)
 		VALUES ($1, $2)
-		RETURNING id, full_name, phone_number, version
+		RETURNING id, full_name, phone_number, version;
 	`
 
 	row := r.pool.QueryRow(ctx, query, user.FullName, user.PhoneNumber)
