@@ -16,7 +16,7 @@ env-cleanup:
 		rm -rf $(PROJECT_ROOT)/out/pgdata && \
 		echo "Файлы окружения удалены."; \
 	else \
-		echo "Файлы окружения отменена."; \
+		echo "Очистка окружения отменена."; \
 	fi
 
 env-port-forward:
@@ -51,6 +51,15 @@ migrate-action:
 		-path /migrations \
 		-database postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@todoapp-postgres:5432/${POSTGRES_DB}?sslmode=disable \
 		"$(action)"
+
+logs-cleanup:
+	@read -p "Очистить все log файлы? [y/N]: " ans; \
+	if [ "$$ans" = "y" ]; then \
+		rm -rf $(PROJECT_ROOT)/out/logs && \
+		echo "Файлы логов удалены."; \
+	else \
+		echo "Очистка логов отменена."; \
+	fi
 
 todoapp-run:
 	@export LOGGER_FOLDER=$(PROJECT_ROOT)/out/logs && \
